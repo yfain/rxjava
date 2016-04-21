@@ -16,16 +16,17 @@ public class BeerServer {
         // Create an observable passing subscriber (implements Observer) provided by the client
         return
             Observable.create(subscriber -> {
-                try {
-                    for (int i = 0; i < beerStock.size(); i++) {
 
-                        subscriber.onNext(beerStock.get(i));
+                for (int i = 0; i < beerStock.size(); i++) {
 
+                    subscriber.onNext(beerStock.get(i));
+
+                    try {
                         Thread.sleep(500); // Emulating delay in getting data
-
+                    } catch (InterruptedException e) {
+                        subscriber.onError(new Throwable("Error in getting beer info"));
                     }
-                } catch(Throwable err){
-                    subscriber.onError(new Throwable("Error in getting beer info"));
+
                 }
 
                 subscriber.onCompleted();

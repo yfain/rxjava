@@ -29,16 +29,9 @@ public class ObservableErrorComplete {
 
         List<Beer> beers = loadCellar();  // populate the beer collection
 
-        Observable<Beer> observableBeer = null;
-
         System.out.println("== Observable creation from an Iterable");
 
-        observableBeer = Observable.from(beers);
-
-        observableBeer.subscribe(
-                beer -> System.out.println(beer)
-        );
-
+        Observable<Beer> observableBeer = Observable.from(beers);
 
         observableBeer.subscribe(
                 beer -> System.out.println(beer),

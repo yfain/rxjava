@@ -26,7 +26,6 @@ public class BeerServer {
                     } catch (InterruptedException e) {
                         subscriber.onError(new Throwable("Error in getting beer info"));
                     }
-
                 }
 
                 subscriber.onCompleted();

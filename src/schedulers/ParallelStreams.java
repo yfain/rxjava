@@ -18,7 +18,11 @@ public class ParallelStreams {
                                .subscribeOn(Schedulers.computation())
                                .map(beeer -> matureBeer(beeer))
                  )
-                .subscribe();
+
+                .subscribe(beer -> System.out.println("Subscriber got " +
+                                   beer.name + " on  " +
+                                   Thread.currentThread().getName())
+                );
 
 
         // Just to keep the program running

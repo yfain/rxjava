@@ -15,7 +15,7 @@ public class ObservableDrinks {
         Observable<List<Drink>> drinks$ = getDrinks();
 
         drinks$
-            //.flatMap(list -> Observable.from(list))
+            .flatMap(drinks -> Observable.from(drinks))
             .subscribe(
                 data -> System.out.println("Subscriber received " + data),
                 (error) -> System.err.println(error),
@@ -25,26 +25,16 @@ public class ObservableDrinks {
 
     public static Observable<List<Drink>> getDrinks(){
 
-        drinks.add(loadBeers());
-        drinks.add(loadSoftDrinks());
+        Observable<List<Drink>> beerTrolley$ = Observable.create(subscriber -> {
 
+            subscriber.onNext(loadBeers());   // push the beers pallet
 
-        Observable<List<Drink>> beerTrolley = Observable.create(subscriber -> {
-
-            subscriber.onNext(loadBeers());   // push a beer trolley
-
-            try {
-                Thread.sleep(5000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-            subscriber.onNext(loadSoftDrinks()); // push a soft drink trolley
+            subscriber.onNext(loadSoftDrinks()); // push the soft drink pallet
 
             subscriber.onCompleted();
         });
 
-        return beerTrolley;
+        return beerTrolley$;
     }
 
     static List<Drink> loadBeers(){

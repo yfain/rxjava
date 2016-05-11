@@ -1,11 +1,8 @@
 package composingObservables;
 
 import rx.Observable;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import static rx.observers.Observers.create;
 
 public class ObservableDrinks {
 
@@ -21,20 +18,6 @@ public class ObservableDrinks {
                 (error) -> System.err.println(error),
                 () -> System.out.println("*** The stream is over ***")
             );
-    }
-
-    public static Observable<List<Drink>> getDrinks(){
-
-        Observable<List<Drink>> beerTrolley$ = Observable.create(subscriber -> {
-
-            subscriber.onNext(loadBeers());   // push the beers pallet
-
-            subscriber.onNext(loadSoftDrinks()); // push the soft drink pallet
-
-            subscriber.onCompleted();
-        });
-
-        return beerTrolley$;
     }
 
     static List<Drink> loadBeers(){
@@ -55,4 +38,20 @@ public class ObservableDrinks {
         softStock.add(new SoftDrink("Fanta", "USA", 3.00f));
         return softStock;
     }
+
+
+    public static Observable<List<Drink>> getDrinks(){
+
+        Observable<List<Drink>> beerTrolley$ = Observable.create(subscriber -> {
+
+            subscriber.onNext(loadBeers());   // push the beers pallet
+
+            subscriber.onNext(loadSoftDrinks()); // push the soft drink pallet
+
+            subscriber.onCompleted();
+        });
+
+        return beerTrolley$;
+    }
+
 }

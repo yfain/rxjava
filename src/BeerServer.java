@@ -3,9 +3,6 @@ import rx.Observable;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by yfain11 on 4/16/16.
- */
 public class BeerServer {
 
     public static Observable<Beer> getData(){

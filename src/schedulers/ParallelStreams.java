@@ -15,7 +15,7 @@ public class ParallelStreams {
 
         observableBeers
                 .flatMap(beer -> Observable.just(beer)
-                               .subscribeOn(Schedulers.computation())
+                               .subscribeOn(Schedulers.computation())  // new thread for each observable
                                .map(beeer -> matureBeer(beeer))
                  )
 

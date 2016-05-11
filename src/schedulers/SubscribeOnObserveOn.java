@@ -1,9 +1,5 @@
 package schedulers;
 
-/**
- * Created by yfain11 on 4/9/16.
- */
-
 import rx.Observable;
 import rx.schedulers.Schedulers;
 
@@ -19,13 +15,12 @@ public class SubscribeOnObserveOn {
         Observable<Beer> observableBeers = null;
 
         observableBeers.from(beers)
-                .subscribeOn(Schedulers.computation())
-                .doOnNext(beer -> log(beer))        // Side effect: Log on computation thread
-                .observeOn(Schedulers.io())
-                .subscribe(beer -> matureBeer(beer)); // Process on another io thread
+                .subscribeOn(Schedulers.computation())  // push data on computation thread
+                .doOnNext(beer -> log(beer))            // Side effect: Log on computation thread
+                .observeOn(Schedulers.io())             // Process on another io thread
+                .subscribe(beer -> matureBeer(beer));
 
-
-        // Just to keep the program running
+        // Sleep just to keep the program running
         try {
             Thread.sleep(5000);
 

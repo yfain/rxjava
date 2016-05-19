@@ -13,7 +13,8 @@ public class BeerServerWithFailover {
         loadSeller();
         System.out.println("*** Getting beers from the main data source ***");
 
-        // Create an observable passing subscriber (implements Observer) provided by the client
+        // Create an observable passing subscriber (implements Observer)
+        // provided by the client
         return
                 Observable.create(subscriber -> {
                     try {

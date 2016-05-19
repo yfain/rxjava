@@ -12,7 +12,6 @@ public class BeerClientWithFailover {
             .onErrorResumeNext(err -> {
                 System.out.println("!!! Switching to an alternative data source because of : "+ err.getMessage());
                 return BeerServerWithFailover.getDataFromAnotherServer();})   // get data from alternative server
-
             .subscribe(
                 // Implementing the observer
                 beer -> System.out.println(beer),

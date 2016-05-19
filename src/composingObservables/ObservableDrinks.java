@@ -8,17 +8,6 @@ public class ObservableDrinks {
 
     static List<List<? extends Drink>> drinks = new ArrayList<>();
 
-    public static void main(String[] args) {
-        Observable<List<Drink>> drinks$ = getDrinks();
-
-        drinks$
-            .flatMap(drinks -> Observable.from(drinks))
-            .subscribe(
-                data -> System.out.println("Subscriber received " + data),
-                (error) -> System.err.println(error),
-                () -> System.out.println("*** The stream is over ***")
-            );
-    }
 
     static List<Drink> loadBeers(){
         List<Drink> beerStock = new ArrayList<>();
@@ -42,7 +31,7 @@ public class ObservableDrinks {
 
     public static Observable<List<Drink>> getDrinks(){
 
-        Observable<List<Drink>> beerTrolley$ = Observable.create(subscriber -> {
+        Observable<List<Drink>> beerPallets = Observable.create(subscriber -> {
 
             subscriber.onNext(loadBeers());   // push the beers pallet
 
@@ -51,7 +40,18 @@ public class ObservableDrinks {
             subscriber.onCompleted();
         });
 
-        return beerTrolley$;
+        return beerPallets;
     }
 
+    public static void main(String[] args) {
+        Observable<List<Drink>> pallets = getDrinks();
+
+        pallets
+            .flatMap(pallet -> Observable.from(pallet))
+            .subscribe(
+                data -> System.out.println("Subscriber received " + data),
+                (error) -> System.err.println(error),
+                () -> System.out.println("*** The stream is over ***")
+            );
+    }
 }

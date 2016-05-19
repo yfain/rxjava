@@ -28,11 +28,8 @@ public class HelloObservable {
 
         List<Beer> beers = loadCellar();  // populate the beer collection
 
-        Observable<Beer> observableBeer = null;
-
-        System.out.println("== Observable creation from an Iterable");
-
-        observableBeer = Observable.from(beers);
+        Observable<Beer> observableBeer =
+                            Observable.from(beers);   // Create Observable from List
 
         observableBeer.subscribe(
                 beer -> System.out.println(beer)    // onNext handler

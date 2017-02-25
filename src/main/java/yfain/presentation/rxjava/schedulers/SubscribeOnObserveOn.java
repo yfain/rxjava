@@ -1,24 +1,25 @@
-package schedulers;
+package yfain.presentation.rxjava.schedulers;
 
 import rx.Observable;
 import rx.schedulers.Schedulers;
+import yfain.presentation.rxjava.drink.Beer;
+import yfain.presentation.rxjava.stock.BeerStock;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class SubscribeOnObserveOn {
 
     public static void main(String[] args) {
 
-        List<Beer> beers = loadCellar();  // populate the beer collection
+        List<Beer> beers = new BeerStock();// populate the beer collection
 
         Observable<Beer> observableBeers = null;
 
         observableBeers.from(beers)
                 .subscribeOn(Schedulers.computation())  // push data on computation thread
-                .doOnNext(beer -> log(beer))            // Side effect: Log on computation thread
+                .doOnNext(SubscribeOnObserveOn::log)            // Side effect: Log on computation thread
                 .observeOn(Schedulers.io())             // Process on another io thread
-                .subscribe(beer -> matureBeer(beer));
+                .subscribe(SubscribeOnObserveOn::matureBeer);
 
         // Sleep just to keep the program running
         try {
@@ -46,21 +47,5 @@ public class SubscribeOnObserveOn {
     private static void log(Beer beer){
         System.out.println("===> Logging " + beer.name +
                            " on "  + Thread.currentThread().getName() );
-    }
-
-    // Populate beer collection
-    static List<Beer> loadCellar() {
-        List<Beer> beerStock = new ArrayList<>();
-
-        beerStock.add(new Beer("Stella", "Belgium", 7.75f));
-        beerStock.add(new Beer("Sam Adams", "USA", 7.00f));
-        beerStock.add(new Beer("Obolon", "Ukraine", 4.00f));
-        beerStock.add(new Beer("Bud Light", "USA", 5.00f));
-        beerStock.add(new Beer("Yuengling", "USA", 5.50f));
-        beerStock.add(new Beer("Leffe Blonde", "Belgium", 8.75f));
-        beerStock.add(new Beer("Chimay Blue", "Belgium", 10.00f));
-        beerStock.add(new Beer("Brooklyn Lager", "USA", 8.25f));
-
-        return beerStock;
     }
 }

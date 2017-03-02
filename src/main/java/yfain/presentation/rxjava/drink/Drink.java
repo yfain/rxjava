@@ -1,4 +1,4 @@
-package composingObservables;
+package yfain.presentation.rxjava.drink;
 
 public abstract class Drink {
     public String name;

@@ -1,5 +1,8 @@
+package yfain.presentation.rxjava;
+
 import rx.Observable;
 import rx.Subscriber;
+import yfain.presentation.rxjava.drink.Beer;
 
 public class BeerClient {
     public static void main(String[] args) {

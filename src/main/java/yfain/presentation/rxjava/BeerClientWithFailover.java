@@ -1,7 +1,8 @@
-/**
+package yfain.presentation.rxjava; /**
  * Created by yfain11 on 4/19/16.
  */
 import rx.Observable;
+import yfain.presentation.rxjava.drink.Beer;
 
 public class BeerClientWithFailover {
     public static void main(String[] args) {
